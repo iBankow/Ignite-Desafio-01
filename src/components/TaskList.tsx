@@ -27,15 +27,18 @@ export function TaskList() {
   }
 
   function checkIds(tasks: Task[], newTask: Task) {
+    let counter = 0
     for (let task of tasks) {
-      if (task.id != newTask.id) {
-        setTasks(task => [...task, newTask])
-        break
-      } else {
-        newTask.id = Math.random()
-        checkIds(tasks, newTask)
+      if (task.id === newTask.id) {
+        counter += 1
         break
       }
+    }
+    if (counter > 1) {
+      newTask.id = Math.random()
+      checkIds(tasks, newTask)
+    } else {
+      setTasks(task => [...task, newTask])
     }
   }
 
